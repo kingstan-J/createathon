@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPL Auction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+ 
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            margin: 20px;
+        }
+
+        .player-card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            width: 150px;
+            margin: 10px;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .player-card:hover {
+            transform: scale(1.05);
+        }
+
+        .player-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+
+        .player-card h3 {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        .player-card button {
+            padding: 5px 10px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .player-card button:hover {
+            background-color: #2980b9;
+        }
+
+        .auction-info {
+            margin: 20px;
+            text-align: center;
+        }
+
+        .auction-info p {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .player-info {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>IPL Auction 2024</h1>
+    </header>
+
+    <div class="auction-info">
+        <p>Current Player: <span id="currentPlayerName">None</span></p>
+        <p>Current Bid: ₹<span id="currentBid">0</span></p>
+    </div>
+
+    <div class="container" id="playerContainer">
+        <!-- Player cards will be injected here by JavaScript -->
+    </div>
+
+    <script>
+        const players = [
+            { name: "Player 1", image: "https://via.placeholder.com/100", price: 100 },
+            { name: "Player 2", image: "https://via.placeholder.com/100", price: 200 },
+            { name: "Player 3", image: "https://via.placeholder.com/100", price: 300 },
+            { name: "Player 4", image: "https://via.placeholder.com/100", price: 150 },
+            { name: "Player 5", image: "https://via.placeholder.com/100", price: 250 },
+            { name: "Player 6", image: "https://via.placeholder.com/100", price: 350 },
+            { name: "Player 7", image: "https://via.placeholder.com/100", price: 400 },
+            { name: "Player 8", image: "https://via.placeholder.com/100", price: 120 },
+            { name: "Player 9", image: "https://via.placeholder.com/100", price: 220 },
+            { name: "Player 10", image: "https://via.placeholder.com/100", price: 280 },
+            { name: "Player 11", image: "https://via.placeholder.com/100", price: 90 },
+            { name: "Player 12", image: "https://via.placeholder.com/100", price: 180 },
+            { name: "Player 13", image: "https://via.placeholder.com/100", price: 270 },
+            { name: "Player 14", image: "https://via.placeholder.com/100", price: 350 },
+            { name: "Player 15", image: "https://via.placeholder.com/100", price: 450 },
+            { name: "Player 16", image: "https://via.placeholder.com/100", price: 200 },
+            { name: "Player 17", image: "https://via.placeholder.com/100", price: 320 },
+            { name: "Player 18", image: "https://via.placeholder.com/100", price: 130 },
+            { name: "Player 19", image: "https://via.placeholder.com/100", price: 160 },
+            { name: "Player 20", image: "https://via.placeholder.com/100", price: 190 },
+            { name: "Player 21", image: "https://via.placeholder.com/100", price: 230 },
+            { name: "Player 22", image: "https://via.placeholder.com/100", price: 250 },
+            { name: "Player 23", image: "https://via.placeholder.com/100", price: 310 },
+            { name: "Player 24", image: "https://via.placeholder.com/100", price: 200 },
+            { name: "Player 25", image: "https://via.placeholder.com/100", price: 320 },
+            { name: "Player 26", image: "https://via.placeholder.com/100", price: 370 },
+            { name: "Player 27", image: "https://via.placeholder.com/100", price: 400 },
+            { name: "Player 28", image: "https://via.placeholder.com/100", price: 450 },
+            { name: "Player 29", image: "https://via.placeholder.com/100", price: 210 },
+            { name: "Player 30", image: "https://via.placeholder.com/100", price: 260 },
+            { name: "Player 31", image: "https://via.placeholder.com/100", price: 280 },
+            { name: "Player 32", image: "https://via.placeholder.com/100", price: 300 },
+            { name: "Player 33", image: "https://via.placeholder.com/100", price: 350 },
+            { name: "Player 34", image: "https://via.placeholder.com/100", price: 400 },
+            { name: "Player 35", image: "https://via.placeholder.com/100", price: 420 },
+            { name: "Player 36", image: "https://via.placeholder.com/100", price: 480 },
+            { name: "Player 37", image: "https://via.placeholder.com/100", price: 530 },
+            { name: "Player 38", image: "https://via.placeholder.com/100", price: 550 },
+            { name: "Player 39", image: "https://via.placeholder.com/100", price: 600 },
+            { name: "Player 40", image: "https://via.placeholder.com/100", price: 700 },
+            { name: "Player 41", image: "https://via.placeholder.com/100", price: 800 },
+            { name: "Player 42", image: "https://via.placeholder.com/100", price: 900 },
+            { name: "Player 43", image: "https://via.placeholder.com/100", price: 950 },
+            { name: "Player 44", image: "https://via.placeholder.com/100", price: 1000 },
+            { name: "Player 45", image: "https://via.placeholder.com/100", price: 1100 },
+            { name: "Player 46", image: "https://via.placeholder.com/100", price: 1200 },
+            { name: "Player 47", image: "https://via.placeholder.com/100", price: 1300 },
+            { name: "Player 48", image: "https://via.placeholder.com/100", price: 1400 },
+            { name: "Player 49", image: "https://via.placeholder.com/100", price: 1500 },
+            { name: "Player 50", image: "https://via.placeholder.com/100", price: 1600 }
+        ];
+
+        // Add player cards to the page
+        const playerContainer = document.getElementById("playerContainer");
+
+        players.forEach(player => {
+            const playerCard = document.createElement("div");
+            playerCard.classList.add("player-card");
+            playerCard.innerHTML = `
+                <img src="${player.image}" alt="${player.name}">
+                <h3>${player.name}</h3>
+                <p>₹ ${player.price}</p>
+                <button onclick="placeBid('${player.name}', ${player.price})">Place Bid</button>
+            `;
+            playerContainer.appendChild(playerCard);
+        });
+
+        let currentBid = 0;
+        let currentPlayer = "";
+
+        function placeBid(playerName, playerPrice) {
+            currentPlayer = playerName;
+            currentBid = playerPrice;
+            document.getElementById("currentPlayerName").innerText = currentPlayer;
+            document.getElementById("currentBid").innerText = currentBid;
+        }
+    </script>
+</body>
+
+</html>
